@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Вход — OpticShop{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-start" style="min-height: 100vh; padding-top: 12vh;">
+    <div class="w-100" style="max-width: 420px;">
+      <h1 class="h4 mb-3 text-center">Вход</h1>
+      <form method="post" class="card p-3 shadow-sm">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+
+        <div class="mb-3">
+          <label class="form-label" for="{{ form.username.id_for_label }}">Логин</label>
+          <input
+            class="form-control"
+            type="text"
+            name="{{ form.username.html_name }}"
+            id="{{ form.username.id_for_label }}"
+            value="{{ form.username.value|default_if_none:'' }}"
+            autocomplete="username"
+            required
+          />
+          {% if form.username.errors %}
+            <div class="text-danger small">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="{{ form.password.id_for_label }}">Пароль</label>
+          <input
+            class="form-control"
+            type="password"
+            name="{{ form.password.html_name }}"
+            id="{{ form.password.id_for_label }}"
+            autocomplete="current-password"
+            required
+          />
+          {% if form.password.errors %}
+            <div class="text-danger small">{{ form.password.errors }}</div>
+          {% endif %}
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Войти</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
