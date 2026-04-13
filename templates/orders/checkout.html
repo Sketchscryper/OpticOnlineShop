@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Оформление заказа — OpticShop{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Оформление заказа</h1>
+
+  <form method="post" class="row g-3">
+    {% csrf_token %}
+
+    <div class="col-12">
+      <h2 class="h6 text-uppercase text-muted">Контактные данные</h2>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
+      {{ form.full_name }}
+      {% if form.full_name.errors %}<div class="text-danger small">{{ form.full_name.errors }}</div>{% endif %}
+    </div>
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+      {{ form.phone }}
+      {% if form.phone.errors %}<div class="text-danger small">{{ form.phone.errors }}</div>{% endif %}
+    </div>
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+      {{ form.email }}
+      {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors }}</div>{% endif %}
+    </div>
+
+    <div class="col-12 pt-2">
+      <h2 class="h6 text-uppercase text-muted">Адрес доставки</h2>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <label class="form-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+      {{ form.city }}
+      {% if form.city.errors %}<div class="text-danger small">{{ form.city.errors }}</div>{% endif %}
+    </div>
+    <div class="col-12 col-md-4">
+      <label class="form-label" for="{{ form.street.id_for_label }}">{{ form.street.label }}</label>
+      {{ form.street }}
+      {% if form.street.errors %}<div class="text-danger small">{{ form.street.errors }}</div>{% endif %}
+    </div>
+    <div class="col-6 col-md-2">
+      <label class="form-label" for="{{ form.house.id_for_label }}">{{ form.house.label }}</label>
+      {{ form.house }}
+      {% if form.house.errors %}<div class="text-danger small">{{ form.house.errors }}</div>{% endif %}
+    </div>
+    <div class="col-6 col-md-2">
+      <label class="form-label" for="{{ form.apartment.id_for_label }}">{{ form.apartment.label }}</label>
+      {{ form.apartment }}
+      {% if form.apartment.errors %}<div class="text-danger small">{{ form.apartment.errors }}</div>{% endif %}
+    </div>
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+      {{ form.postal_code }}
+      {% if form.postal_code.errors %}<div class="text-danger small">{{ form.postal_code.errors }}</div>{% endif %}
+    </div>
+
+    <div class="col-12">
+      <label class="form-label" for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
+      {{ form.comment }}
+      {% if form.comment.errors %}<div class="text-danger small">{{ form.comment.errors }}</div>{% endif %}
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+      <a class="btn btn-outline-secondary" href="{% url 'cart:detail' %}">Назад в корзину</a>
+      <button class="btn btn-primary" type="submit">Оформить заказ</button>
+    </div>
+  </form>
+{% endblock %}
+
