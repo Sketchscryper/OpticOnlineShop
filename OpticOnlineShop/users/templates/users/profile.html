@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Левая колонка - профиль -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-user-circle"></i> Мой профиль</h5>
+                </div>
+                <div class="card-body">
+                    <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                    <p class="mb-1"><strong><i class="fas fa-user"></i> Username:</strong> {{ user.username }}</p>
+                    <p class="mb-1"><strong><i class="fas fa-envelope"></i> Email:</strong> {{ user.email }}</p>
+                    <p class="mb-1"><strong><i class="fas fa-phone"></i> Телефон:</strong> {{ profile.phone|default:"Не указан" }}</p>
+                    <p><strong><i class="fas fa-map-marker-alt"></i> Адрес:</strong> {{ profile.address|default:"Не указан" }}</p>
+                    <a href="{% url 'users:profile_edit' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-edit"></i> Редактировать профиль
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-line"></i> Статистика</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="display-4">{{ orders_count }}</h2>
+                    <p class="mb-0">Всего заказов</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правая колонка - заказы -->
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-shopping-bag"></i> Мои заказы</h5>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>№ заказа</th>
+                                        <th>Дата</th>
+                                        <th>Сумма</th>
+                                        <th>Статус</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td><strong>#{{ order.id }}</strong></td>
+                                            <td>{{ order.created|date:"d.m.Y" }}</td>
+                                            <td><strong>{{ order.get_total_cost }} руб.</strong></td>
+                                            <td>
+                                                {% if order.paid %}
+                                                    <span class="badge bg-success">Оплачен</span>
+                                                {% else %}
+                                                    <span class="badge bg-warning text-dark">Ожидает оплаты</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#order{{ order.id }}">
+                                                    <i class="fas fa-eye"></i> Детали
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr class="collapse" id="order{{ order.id }}">
+                                            <td colspan="5" style="padding: 0;">
+                                                <div class="card card-body m-3">
+                                                    <strong><i class="fas fa-box"></i> Товары:</strong>
+                                                    <ul class="mt-2">
+                                                        {% for item in order.items.all %}
+                                                            <li>{{ item.product.name }} - {{ item.quantity }} шт. x {{ item.price }} руб. = <strong>{{ item.get_cost }} руб.</strong></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <strong><i class="fas fa-map-marker-alt"></i> Адрес доставки:</strong> {{ order.address }}<br>
+                                                    <strong><i class="fas fa-phone"></i> Телефон:</strong> {{ order.phone }}<br>
+                                                    <strong><i class="fas fa-comment"></i> Комментарий:</strong> {{ order.comment|default:"Нет" }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-bag fa-3x mb-3 text-muted"></i>
+                            <p>У вас пока нет заказов.</p>
+                            <a href="{% url 'catalog:product_list' %}" class="btn-modern">
+                                <i class="fas fa-shopping-cart"></i> Перейти к покупкам
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Стили для личного кабинета с учётом темы */
+    .card {
+        background-color: var(--card-bg);
+        border-color: var(--border-color);
+    }
+    
+    .card-header {
+        background-color: var(--bg-secondary);
+        border-bottom-color: var(--border-color);
+        color: var(--text-primary);
+    }
+    
+    .card-body {
+        background-color: var(--card-bg);
+        color: var(--text-primary);
+    }
+    
+    .table {
+        color: var(--text-primary);
+    }
+    
+    .table td, .table th {
+        border-color: var(--border-color);
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: var(--bg-secondary);
+    }
+    
+    .btn-outline-info {
+        color: #0dcaf0;
+        border-color: #0dcaf0;
+    }
+    
+    .btn-outline-info:hover {
+        background-color: #0dcaf0;
+        color: white;
+    }
+    
+    [data-theme="dark"] .btn-outline-info {
+        color: #0dcaf0;
+        border-color: #0dcaf0;
+    }
+    
+    [data-theme="dark"] .btn-outline-info:hover {
+        background-color: #0dcaf0;
+        color: #1a1a2e;
+    }
+    
+    /* Текст в таблицах */
+    .table strong {
+        color: var(--text-primary);
+    }
+    
+    /* Бейджи */
+    .badge.bg-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+    }
+    
+    .badge.bg-success {
+        background-color: #198754 !important;
+    }
+    
+    /* Карточка с деталями заказа */
+    .card-body .card {
+        background-color: var(--bg-secondary);
+    }
+</style>
+{% endblock %}

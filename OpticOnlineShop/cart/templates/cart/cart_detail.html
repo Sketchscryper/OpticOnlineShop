@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4"><i class="fas fa-shopping-cart"></i> Корзина товаров</h2>
+    
+    {% if cart|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-hover cart-table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        <tr>
+                            <td>
+                                {% if item.product.image_url %}
+                                    <img src="{{ item.product.image_url }}" style="width: 50px; height: 50px; object-fit: contain; margin-right: 10px;">
+                                {% endif %}
+                                {{ item.product.name }}
+                            </td>
+                            <td>{{ item.price }} ₽</td>
+                            <td>
+                                <form method="post" action="{% url 'cart:cart_update' item.product.id %}" class="d-flex">
+                                    {% csrf_token %}
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="{{ item.product.stock }}" class="form-control" style="width: 70px;">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary ms-2">Обновить</button>
+                                </form>
+                            </td>
+                            <td><strong>{{ item.total_price }} ₽</strong></td>
+                            <td>
+                                <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить товар?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="table-primary">
+                        <td colspan="3"><strong>Итого:</strong></td>
+                        <td colspan="2"><strong>{{ cart.get_total_price }} ₽</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Продолжить покупки
+            </a>
+            <a href="{% url 'orders:checkout' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-credit-card"></i> Оформить заказ
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+            <h5>Ваша корзина пуста</h5>
+            <p>Добавьте товары из каталога</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary mt-2">
+                <i class="fas fa-store"></i> Перейти к покупкам
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .cart-table img {
+        border-radius: 8px;
+        background: #f8f9fa;
+        padding: 5px;
+    }
+    
+    .cart-table td {
+        vertical-align: middle;
+    }
+    
+    .btn-outline-primary {
+        color: #667eea;
+        border-color: #667eea;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #667eea;
+        color: white;
+    }
+    
+    [data-theme="dark"] .cart-table {
+        background-color: var(--card-bg);
+    }
+    
+    [data-theme="dark"] .cart-table td {
+        color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .btn-outline-primary {
+        color: #a8c0ff;
+        border-color: #a8c0ff;
+    }
+    
+    [data-theme="dark"] .btn-outline-primary:hover {
+        background-color: #667eea;
+        color: white;
+    }
+</style>
+{% endblock %}

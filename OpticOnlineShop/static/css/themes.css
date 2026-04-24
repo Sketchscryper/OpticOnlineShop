@@ -1,0 +1,591 @@
+/* Светлая тема (по умолчанию) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-white: #212529;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --navbar-bg: #343a40;
+    --footer-bg: #343a40;
+    --input-bg: #ffffff;
+    --input-text: #212529;
+    --input-border: #ced4da;
+    --category-bg: #f8f9fa;
+    --category-text: #212529;
+    --category-hover: #e9ecef;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-white: #ffffff;
+    --border-color: #2c3e50;
+    --card-bg: #0f3460;
+    --navbar-bg: #0f3460;
+    --footer-bg: #0f3460;
+    --input-bg: #2c3e50;
+    --input-text: #ffffff;
+    --input-border: #4a627a;
+    --category-bg: #16213e;
+    --category-text: #ffffff;
+    --category-hover: #0f3460;
+}
+
+/* Применяем переменные */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.nav-link:hover {
+    color: white !important;
+}
+
+/* Карточки товаров */
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.card-header {
+    background-color: var(--bg-secondary);
+    border-bottom-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Категории */
+.list-group-item {
+    background-color: var(--category-bg);
+    color: var(--category-text) !important;
+    border-color: var(--border-color);
+}
+
+.list-group-item:hover {
+    background-color: var(--category-hover);
+    color: white !important;
+}
+
+.list-group-item.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white !important;
+    border-color: transparent;
+}
+
+/* Стили для всех полей ввода */
+.form-control,
+.form-control-modern,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea,
+select {
+    background-color: var(--input-bg) !important;
+    color: var(--input-text) !important;
+    border-color: var(--input-border) !important;
+}
+
+.form-control:focus,
+.form-control-modern:focus,
+input:focus {
+    border-color: #667eea !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Плейсхолдеры */
+::placeholder,
+.form-control::placeholder,
+input::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+}
+
+/* ============================================
+   СТИЛИ ДЛЯ ПОЛЯ ВВОДА КОЛИЧЕСТВА В КОРЗИНЕ
+   БЕЗ ПРЕДУПРЕЖДЕНИЙ CSS
+   ============================================ */
+
+/* Базовые стили для поля ввода */
+.cart-table input[type="number"] {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+    padding: 6px 10px !important;
+    width: 80px !important;
+    text-align: center !important;
+}
+
+/* Убираем стрелки для WebKit-браузеров (Chrome, Safari, Edge) */
+.cart-table input[type="number"]::-webkit-inner-spin-button,
+.cart-table input[type="number"]::-webkit-outer-spin-button {
+    opacity: 0.5;
+    margin: 0;
+}
+
+/* Показываем стрелки при наведении */
+.cart-table input[type="number"]:hover::-webkit-inner-spin-button,
+.cart-table input[type="number"]:hover::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+/* Стили для Firefox (без использования -moz-appearance) */
+.cart-table input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* При наведении */
+.cart-table input[type="number"]:hover {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #667eea !important;
+}
+
+/* При фокусе */
+.cart-table input[type="number"]:focus {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #667eea !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Тёмная тема для поля ввода количества */
+[data-theme="dark"] .cart-table input[type="number"] {
+    background-color: #2c3e50 !important;
+    color: #ffffff !important;
+    border: 1px solid #4a627a !important;
+}
+
+[data-theme="dark"] .cart-table input[type="number"]:hover {
+    background-color: #2c3e50 !important;
+    color: #ffffff !important;
+    border-color: #667eea !important;
+}
+
+[data-theme="dark"] .cart-table input[type="number"]:focus {
+    background-color: #2c3e50 !important;
+    color: #ffffff !important;
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* ============================================
+   ИСПРАВЛЕНИЕ ВИДИМОСТИ В ТЁМНОЙ ТЕМЕ
+   ============================================ */
+
+/* Номер заказа и сумма в тёмной теме */
+[data-theme="dark"] .table strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="dark"] .table td strong {
+    color: #ffd700 !important;
+}
+
+[data-theme="dark"] .table td:nth-child(3) strong {
+    color: #ffd700 !important;
+    font-size: 1.05em;
+}
+
+/* Сумма в корзине в тёмной теме */
+[data-theme="dark"] .cart-table td strong,
+[data-theme="dark"] .cart-table .total-price {
+    color: #ffd700 !important;
+}
+
+/* Номер заказа в личном кабинете - тёмная тема */
+[data-theme="dark"] .table td:first-child strong {
+    color: #ffd700 !important;
+    font-size: 1.1em;
+}
+
+/* Общая сумма в корзине */
+[data-theme="dark"] .table-primary,
+[data-theme="dark"] .table-primary td,
+[data-theme="dark"] .table-primary strong {
+    background-color: #0f3460 !important;
+    color: #ffd700 !important;
+}
+
+/* Детали заказа в тёмной теме */
+[data-theme="dark"] .card-body .card {
+    background-color: #16213e !important;
+}
+
+[data-theme="dark"] .card-body .card strong {
+    color: #ffd700 !important;
+}
+
+/* Таблицы */
+.table {
+    color: var(--text-primary);
+}
+
+.table td, .table th {
+    border-color: var(--border-color);
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--bg-secondary);
+}
+
+/* Кнопки */
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Бейджи */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+/* Ссылки */
+a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #764ba2;
+}
+
+/* ============================================
+   ПОДДЕРЖКА СТАНДАРТНОГО appearance
+   (без предупреждений)
+   ============================================ */
+
+/* Современные браузеры с поддержкой стандартного appearance */
+@supports (appearance: textfield) {
+    input[type="number"] {
+        appearance: textfield;
+    }
+}
+
+/* Поддержка только WebKit (без предупреждений через @supports) */
+@supports (-webkit-appearance: textfield) {
+    input[type="number"] {
+        -webkit-appearance: textfield;
+    }
+}
+
+/* Поддержка Firefox (без предупреждений) */
+@-moz-document url-prefix() {
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
+
+/* ============================================
+   ИСПРАВЛЕНИЕ ВИДИМОСТИ ССЫЛОК В ФОРМАХ ВХОДА/РЕГИСТРАЦИИ
+   ============================================ */
+
+/* Ссылки в формах */
+.modern-form a,
+.card-body a,
+.login-link,
+.register-link {
+    color: #667eea !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.modern-form a:hover,
+.card-body a:hover,
+.login-link:hover,
+.register-link:hover {
+    color: #764ba2 !important;
+    text-decoration: underline !important;
+}
+
+/* Текст "Нет аккаунта?" и "Уже есть аккаунт?" */
+.modern-form p,
+.card-body p {
+    color: var(--text-primary) !important;
+    font-size: 0.95rem;
+}
+
+/* В тёмной теме ссылки делаем ярче */
+[data-theme="dark"] .modern-form a,
+[data-theme="dark"] .card-body a,
+[data-theme="dark"] .login-link,
+[data-theme="dark"] .register-link {
+    color: #a8c0ff !important;
+}
+
+[data-theme="dark"] .modern-form a:hover,
+[data-theme="dark"] .card-body a:hover {
+    color: #ffd700 !important;
+}
+
+/* Текст кнопок */
+.btn-modern,
+.btn-outline-modern,
+.btn-primary,
+.btn-secondary {
+    color: white !important;
+}
+
+.btn-outline-modern {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .btn-outline-modern {
+    color: #a8c0ff !important;
+    border-color: #a8c0ff !important;
+}
+
+[data-theme="dark"] .btn-outline-modern:hover {
+    color: white !important;
+}
+
+/* ============================================
+   ИСПРАВЛЕНИЕ ВИДИМОСТИ ТЕКСТА НА КНОПКАХ И ССЫЛКАХ
+   ============================================ */
+
+/* Ссылки "Войти", "Зарегистрироваться", "Уже есть аккаунт?" */
+a, 
+.text-center a,
+.form-footer a,
+.modern-form a,
+.card-body a {
+    color: #667eea !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+a:hover, 
+.text-center a:hover,
+.form-footer a:hover,
+.modern-form a:hover,
+.card-body a:hover {
+    color: #764ba2 !important;
+    text-decoration: underline !important;
+}
+
+/* Тёмная тема для ссылок */
+[data-theme="dark"] a, 
+[data-theme="dark"] .text-center a,
+[data-theme="dark"] .form-footer a,
+[data-theme="dark"] .modern-form a,
+[data-theme="dark"] .card-body a {
+    color: #a8c0ff !important;
+}
+
+[data-theme="dark"] a:hover, 
+[data-theme="dark"] .text-center a:hover,
+[data-theme="dark"] .form-footer a:hover,
+[data-theme="dark"] .modern-form a:hover,
+[data-theme="dark"] .card-body a:hover {
+    color: #c7e9fb !important;
+}
+
+/* Текст в параграфах рядом со ссылками */
+.text-center p,
+.modern-form .text-center p,
+.card-body .text-center p {
+    color: var(--text-primary) !important;
+}
+
+/* Кнопка "Подробнее" */
+.btn-modern,
+.btn-outline-modern,
+.product-card .btn-modern,
+.product-card .btn-outline-modern {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.btn-outline-modern {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .btn-outline-modern {
+    color: #a8c0ff !important;
+}
+
+.btn-outline-modern:hover {
+    color: white !important;
+}
+
+/* Кнопка "Подробнее" на карточках товаров */
+.product-card .btn-modern {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white !important;
+}
+
+.product-card .btn-modern:hover {
+    color: white !important;
+}
+
+/* Ссылка "Назад к каталогу" */
+.btn-outline-secondary {
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.btn-outline-secondary:hover {
+    color: white !important;
+    background-color: #6c757d !important;
+}
+
+/* Текст в футере */
+footer p,
+footer a {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+footer a:hover {
+    color: white !important;
+}
+
+/* ============================================
+   ИСПРАВЛЕНИЕ ВИДИМОСТИ В ФУТЕРЕ (СВЕТЛАЯ ТЕМА)
+   ============================================ */
+
+/* Футер - светлая тема */
+footer {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    color: white !important;
+}
+
+footer p, 
+footer h5, 
+footer .text-center p,
+footer .mb-0 {
+    color: white !important;
+}
+
+footer .container p,
+footer .container h5 {
+    color: white !important;
+}
+
+/* Тёмная тема для футера (оставляем как есть) */
+[data-theme="dark"] footer {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%) !important;
+}
+
+[data-theme="dark"] footer p,
+[data-theme="dark"] footer h5 {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ============================================
+   КНОПКА "ПЕРЕЙТИ К ПОКУПКАМ" В КОРЗИНЕ
+   ============================================ */
+
+/* Кнопка "Перейти к покупкам" */
+.btn-success,
+a.btn-success,
+.cart-detail .btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    border-radius: 50px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-success:hover,
+a.btn-success:hover,
+.cart-detail .btn-success:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4) !important;
+    color: white !important;
+}
+
+/* Кнопка "Продолжить покупки" */
+.btn-outline-secondary {
+    color: #6c757d !important;
+    border-color: #6c757d !important;
+    background: transparent !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+/* Тёмная тема для кнопок в корзине */
+[data-theme="dark"] .btn-outline-secondary {
+    color: #a0a0a0 !important;
+    border-color: #4a627a !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #4a627a !important;
+    color: white !important;
+}
+
+/* ============================================
+   ТЕКСТ В ПУСТОЙ КОРЗИНЕ
+   ============================================ */
+
+/* Сообщение "Корзина пуста" */
+.alert-info {
+    background-color: #e3f2fd !important;
+    color: #0c5460 !important;
+    border: 1px solid #b8e1fc !important;
+}
+
+[data-theme="dark"] .alert-info {
+    background-color: #0f3460 !important;
+    color: #e0e0e0 !important;
+    border-color: #2c3e50 !important;
+}
+
+.alert-info h5,
+.alert-info p {
+    color: #0c5460 !important;
+}
+
+[data-theme="dark"] .alert-info h5,
+[data-theme="dark"] .alert-info p {
+    color: #e0e0e0 !important;
+}
+
+.alert-info .btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}

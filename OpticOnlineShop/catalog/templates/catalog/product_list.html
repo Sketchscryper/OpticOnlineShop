@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-4 pt-3">
+    <div class="col-md-3">
+        <div class="modern-form mb-4" style="margin-top: 20px;">
+            <h5 class="mb-3"><i class="fas fa-tags"></i> Категории</h5>
+            <div class="list-group">
+                <a href="{% url 'catalog:product_list' %}" class="list-group-item list-group-item-action {% if not category %}active{% endif %}" style="border-radius: 10px; margin-bottom: 8px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-th-large"></i> Все товары</span>
+                        <span class="badge bg-secondary rounded-pill">{{ products_total }}</span>
+                    </div>
+                </a>
+                {% for cat in categories %}
+                    <a href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action {% if category.slug == cat.slug %}active{% endif %}" style="border-radius: 10px; margin-bottom: 8px;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-folder"></i> {{ cat.name }}</span>
+                            <span class="badge bg-secondary rounded-pill">{{ cat.get_product_count }}</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Правая колонка - товары -->
+    <div class="col-md-9">
+        <!-- Поиск -->
+        <div class="modern-form mb-4">
+            <form method="get" class="d-flex gap-2">
+                <input type="text" name="q" class="form-control form-control-modern" 
+                       placeholder="🔍 Поиск товаров..." 
+                       value="{{ query|default:'' }}">
+                <button type="submit" class="btn-modern">
+                    <i class="fas fa-search"></i> Искать
+                </button>
+                {% if has_filter %}
+                    <a href="{% url 'catalog:product_list' %}" class="btn-outline-modern">
+                        <i class="fas fa-times"></i> Сбросить
+                    </a>
+                {% endif %}
+            </form>
+            
+            {% if query %}
+                <div class="mt-2 text-center">
+                    <small class="text-muted">
+                        🔍 По запросу "<strong>{{ query }}</strong>" найдено <strong>{{ products_count }}</strong> товаров
+                    </small>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Сетка товаров -->
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="product-card">
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" class="product-image" alt="{{ product.name }}">
+                        {% else %}
+                            <div class="product-image d-flex align-items-center justify-content-center">
+                                <i class="fas fa-camera fa-3x text-muted"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="product-title">{{ product.name }}</h5>
+                            <p class="product-price">{{ product.price }} ₽</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-secondary">В наличии: {{ product.stock }}</span>
+                                <a href="{{ product.get_absolute_url }}" class="btn-modern btn-sm w-100 text-center" style="color: white !important; display: inline-block;">
+                                    <i class="fas fa-info-circle"></i> Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="modern-form text-center">
+                        <i class="fas fa-box-open fa-3x mb-3 text-muted"></i>
+                        <h5>Товары не найдены</h5>
+                        <p class="text-muted">Попробуйте изменить параметры поиска</p>
+                        <a href="{% url 'catalog:product_list' %}" class="btn-modern">Сбросить фильтры</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

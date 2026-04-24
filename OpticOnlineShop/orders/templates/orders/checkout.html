@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Оформление заказа</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_full_name" class="form-label">ФИО *</label>
+                            {{ form.full_name }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_phone" class="form-label">Телефон * (11 цифр, начинается с 7 или 8)</label>
+                            {{ form.phone }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email *</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_address" class="form-label">Адрес доставки *</label>
+                            {{ form.address }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_comment" class="form-label">Комментарий к заказу</label>
+                            {{ form.comment }}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Подтвердить заказ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Ваш заказ</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Кол-во</th>
+                                <th>Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart %}
+                                <tr>
+                                    <td>{{ item.product.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.total_price }} руб.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-primary">
+                                <td colspan="2"><strong>Итого:</strong></td>
+                                <td><strong>{{ cart.get_total_price }} руб.</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

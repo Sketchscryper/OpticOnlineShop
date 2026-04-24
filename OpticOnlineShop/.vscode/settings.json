@@ -1,0 +1,12 @@
+{
+    "css.lint.vendorPrefix": "ignore",
+    "css.lint.unknownProperties": "ignore",
+    "scss.lint.vendorPrefix": "ignore",
+    "less.lint.vendorPrefix": "ignore",
+    "files.associations": {
+        "*.css": "css"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    }
+}

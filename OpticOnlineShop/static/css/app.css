@@ -1,0 +1,96 @@
+.product-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-hero {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+/* Стили для переключателя темы */
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+    cursor: pointer;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+#theme-icon {
+    transition: transform 0.3s ease;
+}
+
+#theme-icon:hover {
+    transform: rotate(15deg);
+}
+
+/* Плавные переходы для всех элементов */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Стили для подписей темы */
+#theme-label-light, #theme-label-dark {
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+#theme-label-light:hover, #theme-label-dark:hover {
+    transform: scale(1.05);
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    #theme-label-light, #theme-label-dark {
+        font-size: 0.8rem;
+    }
+}
+
+/* Дополнительные стили для переключателя */
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+    cursor: pointer;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+#theme-icon {
+    transition: transform 0.3s ease;
+}
+
+#theme-icon:hover {
+    transform: rotate(15deg);
+}

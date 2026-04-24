@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="modern-form fade-in-up">
+            <div class="text-center mb-4">
+                <i class="fas fa-sign-in-alt fa-3x" style="color: #667eea;"></i>
+                <h2 class="mt-2">Добро пожаловать!</h2>
+                <p>Войдите в свой аккаунт</p>
+            </div>
+            
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i> Неверное имя пользователя или пароль.
+                </div>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-user"></i> Имя пользователя</label>
+                    <input type="text" name="username" class="form-control form-control-modern" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Пароль</label>
+                    <input type="password" name="password" class="form-control form-control-modern" required>
+                </div>
+                <button type="submit" class="btn-modern w-100">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p>Нет аккаунта? <a href="{% url 'users:register' %}" class="register-link">Зарегистрируйтесь</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Дополнительные стили для этой страницы */
+    .modern-form a {
+        color: #667eea !important;
+        font-weight: 500;
+    }
+    .modern-form a:hover {
+        color: #764ba2 !important;
+        text-decoration: underline;
+    }
+    [data-theme="dark"] .modern-form a {
+        color: #a8c0ff !important;
+    }
+    [data-theme="dark"] .modern-form a:hover {
+        color: #ffd700 !important;
+    }
+    .modern-form p {
+        color: var(--text-primary) !important;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="modern-form fade-in-up">
+            <div class="text-center mb-4">
+                <i class="fas fa-user-plus fa-3x"></i>
+                <h2 class="mt-2">Создание аккаунта</h2>
+                <p>Присоединяйтесь к OpticShop</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-user"></i> Имя пользователя *
+                        </label>
+                        <input type="text" name="username" class="form-control form-control-modern" required>
+                        {% if form.username.errors %}
+                            <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted" style="color: rgba(255,255,255,0.6) !important;">
+                            Только буквы, цифры и @/./+/-/_
+                        </small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-envelope"></i> Email *
+                        </label>
+                        <input type="email" name="email" class="form-control form-control-modern" required>
+                        {% if form.email.errors %}
+                            <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-user"></i> Имя *
+                        </label>
+                        <input type="text" name="first_name" class="form-control form-control-modern" required>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-user"></i> Фамилия *
+                        </label>
+                        <input type="text" name="last_name" class="form-control form-control-modern" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i> Телефон * (+7XXXXXXXXXX)
+                    </label>
+                    <input type="tel" name="phone" class="form-control form-control-modern" placeholder="+79001234567" required>
+                    {% if form.phone.errors %}
+                        <div class="text-danger small mt-1">{{ form.phone.errors }}</div>
+                    {% endif %}
+                    <small class="text-muted" style="color: rgba(255,255,255,0.6) !important;">
+                        Пример: 79001234567 или +79001234567
+                    </small>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i> Адрес доставки *
+                    </label>
+                    <textarea name="address" rows="2" class="form-control form-control-modern" placeholder="Город, улица, дом, квартира" required></textarea>
+                    {% if form.address.errors %}
+                        <div class="text-danger small mt-1">{{ form.address.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-lock"></i> Пароль *
+                        </label>
+                        <input type="password" name="password1" class="form-control form-control-modern" required>
+                        {% if form.password1.errors %}
+                            <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted" style="color: rgba(255,255,255,0.6) !important;">
+                            Минимум 8 символов
+                        </small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-lock"></i> Подтверждение пароля *
+                        </label>
+                        <input type="password" name="password2" class="form-control form-control-modern" required>
+                        {% if form.password2.errors %}
+                            <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-modern w-100 mt-3">
+                    <i class="fas fa-check-circle"></i> Зарегистрироваться
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p style="color: var(--text-primary);">
+                    Уже есть аккаунт? 
+                    <a href="{% url 'users:login' %}" style="color: #667eea; font-weight: 600;">
+                        <i class="fas fa-sign-in-alt"></i> Войдите
+                    </a>
+                </p>
+            </div>
+
+            <style>
+                /* Дополнительные стили для этой страницы */
+                .modern-form a {
+                    color: #667eea !important;
+                    font-weight: 500;
+                }
+                .modern-form a:hover {
+                    color: #764ba2 !important;
+                    text-decoration: underline;
+                }
+                [data-theme="dark"] .modern-form a {
+                    color: #a8c0ff !important;
+                }
+                [data-theme="dark"] .modern-form a:hover {
+                    color: #ffd700 !important;
+                }
+                .modern-form p {
+                    color: var(--text-primary) !important;
+                }
+            </style>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="modern-form">
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" class="w-100" style="border-radius: 15px; object-fit: contain; max-height: 400px; background: #f8f9fa; padding: 20px;" alt="{{ product.name }}">
+            {% else %}
+                <div class="d-flex align-items-center justify-content-center" style="height: 400px; background: #f8f9fa; border-radius: 15px;">
+                    <i class="fas fa-camera fa-5x" style="opacity: 0.5; color: #999;"></i>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="modern-form">
+            <h2>{{ product.name }}</h2>
+            <p class="mb-3">
+                <i class="fas fa-folder"></i> 
+                <a href="{{ product.category.get_absolute_url }}" style="color: #667eea; text-decoration: none;">
+                    {{ product.category.name }}
+                </a>
+            </p>
+            <hr>
+            <h1 class="display-4" style="color: #667eea;">{{ product.price }} ₽</h1>
+            <div class="mb-3">
+                <span class="badge {% if product.stock > 0 %}bg-success{% else %}bg-danger{% endif %}" style="font-size: 1rem; padding: 8px 15px;">
+                    <i class="fas {% if product.stock > 0 %}fa-check-circle{% else %}fa-times-circle{% endif %}"></i>
+                    {% if product.stock > 0 %}В наличии: {{ product.stock }} шт.{% else %}Нет в наличии{% endif %}
+                </span>
+            </div>
+            <hr>
+            
+            <!-- Описание с сохранением форматирования -->
+            <h5><i class="fas fa-info-circle"></i> Описание:</h5>
+            <div class="product-description">
+                {% if product.formatted_description %}
+                    {{ product.formatted_description }}
+                {% else %}
+                    <p class="text-muted">Описание отсутствует</p>
+                {% endif %}
+            </div>
+            
+            {% if product.stock > 0 %}
+                <form method="post" action="{% url 'cart:cart_add' product.id %}" class="mt-4">
+                    {% csrf_token %}
+                    <div class="row g-3 align-items-end">
+                        <div class="col-auto">
+                            <label class="form-label">Количество:</label>
+                            <input type="number" name="quantity" class="form-control" value="1" min="1" max="{{ product.stock }}" style="width: 100px;">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn-modern">
+                                <i class="fas fa-shopping-cart"></i> В корзину
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{% url 'catalog:product_list' %}" class="btn-outline-modern" style="color: #667eea !important;">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <button class="btn-outline-modern" disabled>
+                    <i class="fas fa-times-circle"></i> Нет в наличии
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-description {
+        line-height: 1.6;
+        margin-top: 1rem;
+    }
+    
+    /* Сохраняем пробелы и переносы */
+    .product-description [style*="white-space: pre-wrap"] {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Стили для списков */
+    .product-description ul,
+    .product-description ol {
+        margin-left: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .product-description li {
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Стили для заголовков */
+    .product-description h1,
+    .product-description h2,
+    .product-description h3,
+    .product-description h4 {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Стили для жирного текста */
+    .product-description strong {
+        color: #667eea;
+    }
+    
+    /* Стили для отступов */
+    .product-description div[style*="margin-left"] {
+        border-left: 2px solid #e0e0e0;
+        padding-left: 15px;
+    }
+</style>
+{% endblock %}
